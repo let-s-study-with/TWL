@@ -101,7 +101,8 @@ ETCDCTL_API=3 etcdctl snapshot restore --data-dir <data-dir-location> snapshotdb
 	- 그래서 docker ps 가 아닌 pstree 로 static pod 확인 가능
 - static pod 는 해당 노드의 kubelet 데몬에 의해 동작되고 관리
 	- 하지만 kubelet 프로세스의 미동작 여부와는 관계없음
-	- kubelet 프로세스가 죽는다고 static pod 프로세스가 죽진 않음
+	- kubelet 프로세스가 죽는다고 동작중인 static pod 프로세스가 죽진 않음
+		- 새로운 static pod 생성은 안될듯
 
 ## 4-2. sidecar-container ( 중요 )
 - 둘 이상의 컨테이너가 서로 종속되어 실행되는 pod 환경
@@ -144,6 +145,20 @@ spec:
 - eshop-cart container 는 log 를 공용 volume 에 생성
 - cart-log container 는 해당 log 를 표준출력으로 내보내서 kubectl log [pod 이름] -c cart.log 로 확인 가능하도록 동작
 - 중요한건 두 컨테이너가 동일 volume 을 mount 하여 공유해서 사용하여 서로의 종속성을 가져간다는 것
+
+# 5. Deployment
+
+[k8s docs deployment](https://kubernetes.io/ko/docs/concepts/workloads/controllers/deployment/)
+
+- ReplicaSet 에서 생성한 Pod 이름은 "[RS 이름]-[랜덤 Hash]"
+	- 때문에 Pod 에 문제가 생겨 새롭게 생성하면 랜덤 hash 로 인해 이름이 바뀜
+
+- Pod 목록 이름만 저장하라는 문제
+	- kubectl get pods | grep eshop | awk -F' ' '{print $1}' | grep -v NAME
+		- awk -F' ' 이건 공백 기준으로 필드를 구분 -> 구분된 필드의 $1 첫 번째 필드를 출력 -> grep -v 는 grep 의 반대로 해당 문구는 뺴고 출력
+
+- Rolling Update 시 ReplicaSet 은 신규 ReplicaSet 으로 대체된다
+	- 즉 기존 Pod 이름 앞에 RS 명 ( RS Hash ) 과 Pod Hash 값이 바뀐다
 
 
 
