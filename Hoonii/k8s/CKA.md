@@ -89,6 +89,64 @@ ETCDCTL_API=3 etcdctl snapshot restore --data-dir <data-dir-location> snapshotdb
 - 위 Role / Role Binding 은 한 Namespace 단위로 동작하고, Cluster 전체 단위로 사용은 Cluster Role 과 Cluster Role Binding 이 사용된다.
 
 
+# 4. Pod
+
+[k8s docs pod env](https://kubernetes.io/ko/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)  
+[k8s docs pod command line](https://kubernetes.io/ko/docs/tasks/inject-data-application/define-command-argument-container/)  
+[k8s docs pod logging architecture](https://kubernetes.io/ko/docs/concepts/cluster-administration/logging/)
+
+## 4-1. Static Pod
+- static pod 는 컨테이너로 실행되지 않고 노드 자체 프로세스로 실행
+	- 때문에 동작 노드의 docker 프로세스로 확인이 불가능
+	- 그래서 docker ps 가 아닌 pstree 로 static pod 확인 가능
+- static pod 는 해당 노드의 kubelet 데몬에 의해 동작되고 관리
+	- 하지만 kubelet 프로세스의 미동작 여부와는 관계없음
+	- kubelet 프로세스가 죽는다고 static pod 프로세스가 죽진 않음
+
+## 4-2. sidecar-container ( 중요 )
+- 둘 이상의 컨테이너가 서로 종속되어 실행되는 pod 환경
+	- 보통 공용 directory 에 여러 container log 를 저장하고 분석하거나 monitoring 솔루션에서 이를 활용 하여 사용하도록 구성
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: eshop-cart-app
+spec:
+  containers:
+  - name: eshop-cart
+    image: busybox:1.28
+    args:
+    - /bin/sh
+    - -c
+    - >
+      i=0;
+      while true;
+      do
+        echo "$i: $(date)" >> /var/log/cart-app.log;
+        i=$((i+1));
+        sleep 1;
+      done      
+    volumeMounts:
+    - name: cart-log
+      mountPath: /var/log
+  - name: cart-app-log-1
+    image: busybox:1.28
+    args: [/bin/sh, -c, 'tail -n+1 -f /var/log/cart-app.log']
+    volumeMounts:
+    - name: varlog
+      mountPath: /var/log
+  volumes:
+  - name: varlog
+    emptyDir: {}
+```
+
+- eshop-cart container 는 log 를 공용 volume 에 생성
+- cart-log container 는 해당 log 를 표준출력으로 내보내서 kubectl log [pod 이름] -c cart.log 로 확인 가능하도록 동작
+- 중요한건 두 컨테이너가 동일 volume 을 mount 하여 공유해서 사용하여 서로의 종속성을 가져간다는 것
+
+
+
 
 
 
