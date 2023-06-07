@@ -161,7 +161,56 @@ spec:
 	- 즉 기존 Pod 이름 앞에 RS 명 ( RS Hash ) 과 Pod Hash 값이 바뀐다
 
 
+# 6. Node 관련
 
+## 6-1. Node 관리
+- Node 스케줄링 중단 및 허용
+
+1. Node Drain VS Node Cordon
+	1. Node Drain ( 노드 비우기 )
+		1. 해당 노드에 더 이상 Pod 가 스케줄링 되지 않고 , 기존 동작중인 Pod 는 재 스케줄링하여 중단 없이 다른 Node 로 이동 시킴
+		2. 노드를 유지보수 , 업그레이드 , 확장 , 비상상황 등에 사용   
+	2. Node Cordon
+		1. 해당 노드에 더 이상 Pod 가 스케줄링 되지 않고 , 기존 동작중인 Pod 는 그대로 유지
+		2. 기존 동작중인 Pod 들에 Resource 를 보장하기 위해 사용
+
+두 가지 모두 해제는 kubectl uncordon [node 이름]
+
+## 6-2. Node 정보
+
+[k8s docs taint & tolerance](https://kubernetes.io/ko/docs/concepts/scheduling-eviction/taint-and-toleration/)
+
+- Node 엔 taint 지정 가능
+	- 기본적으로 Master Node 엔 "NoSchedule" effect 의 Taint 가 설정되어있다. ( key : effect 구조 )
+		- kubectl describe nodes (노드 명) | grep -i taint
+			- 확인 명령어
+	- taint 구조
+		- key=value:effect
+- Pod 엔 tolerance 지정 가능
+
+- 때문에 Master Node 엔 일반적으로 Pod 가 배포되지 않는다.
+- Pod 에 NoSchedule effect 의 tolerance 를 지정하면 master node 에도 해당 Pod 가 스케줄링되도록 구성할 수 있다.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    env: test
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    imagePullPolicy: IfNotPresent
+  tolerations:
+  - key: "node-role.kubernetes.io/master"
+    operator: "Exists"
+    effect: "NoSchedule"
+```
+
+- 해당 키가 일치하는 노드와 키가 없는 노드에도 할당되도록 스케줄링한다.
+	- 즉 , Master & Worker Node 모두 스케줄링
 
 
 
