@@ -1,0 +1,94 @@
+# 0. 출처
+1. [FastCampus](https://fastcampus.co.kr/dev_online_kubemsa)
+2. [k8s docs](https://kubernetes.io/docs/)
+
+# 1. etcd
+- key-value 형태의 데이터 스토리지
+- k8s cluster 의 정보를 저장해서 관리
+- 모든 etcd 데이터는 별도의 파일로 보관 ( /var/lib/etcd )
+
+- etcd 는 master node 에서 동작하는 static pod 다. ( control plane component )
+  - static pod 는 특정 경로 밑에 yaml 파일을 저장하면 자동으로 동작하는 pod
+
+## 1-1. etcd backup & restore
+- etcd 는 k8s cluster 내의 모든 정보를 저장하고 있어 특정 시점의 데이터를 snapshot 으로 저장하여 복구 가능
+- etcd 혹은 mater node 장애 상황을 대비해 snapshot 을 백업하는건 필수
+
+```shell
+ETCDCTL_API=3 etcdctl --endpoints=https://127.0.0.1:2379 \
+  --cacert=<trusted-ca-file> --cert=<cert-file> --key=<key-file> \
+  snapshot save <backup-file-location>
+```
+
+```shell
+ETCDCTL_API=3 etcdctl snapshot restore --data-dir <data-dir-location> snapshotdb
+```
+
+- etcd 는 별도의 etcdctl 을 통해 etcd backup / restore api 에 접근 가능
+- etcd 는 static pod 이기에 새로운 경로에 restore 이후 yaml 을 수정하면 자동으로 pod 가 재기동
+
+
+# 2. k8s cluster upgrade
+- [k8s docs](https://kubernetes.io/ko/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
+- k8s package
+  - kubeadm : 클러스터를 부트스트랩하는 명령
+  - kubelet : Pod 와 Controller 시작과 같은 작업 수행 컴포넌트
+  - kubectl : 클러스터와 통신하기 위한 command line 유틸리티
+  - 업그레이드 진행 시 위 패키지 구성요소를 모두 업그레이드 필요
+
+# 2-1. Node Upgrade
+- kubeadm upgrade apply 시 , control plane 컴포넌트 즉, static pod 들이 업그레이드 됨
+---
+- Master Node Drain 시
+  - control plane 컴포넌트도 결국 static 이지만 pod 이기에 동작이 중지
+  - drain 이후 uncorden 시 static pod 들은 자동 시작
+---
+- Node Drain
+  - 업그레이드 시 Node 를 Drain 상태로 만들고 완료 시 해지한다 
+  - 드레인 상태 시 
+    - 동작중인 파드를 재 스케줄링하여 다른 노드로 이동
+    - 노드를 비활성화 하여 스케줄링된 pod 가 할당되지 않도록 동작
+    - 클러스터 이벤트로 드레인 상태 및 파드 이동에 대한 정보를 추적하고 모니터링 가능
+---
+- 업그레이드는 k8s docs 에 맞춰 진행하면 됨
+
+# 3. rbac 인증 ( 역할 기반 인증 )
+[k8s docs rbac](https://kubernetes.io/docs/reference/access-authn-authz/rbac/)
+[k8s docs cert & csr](https://kubernetes.io/docs/reference/access-authn-authz/certificate-signing-requests/#normal-user)
+- k8s api server 에서 인증은 2가지 형태로 진행
+
+1. rbac ( roll-based access control )
+	1. 인증 단위
+		1. User ( Linux 가 아닌 k8s 계정 )
+		2. Service Account ( 각 Pod 엔 SA 가 할당되어 인증 시 사용 가능 )
+2. abac ( attribute-based access control )
+
+# 3-1. rbac
+1. 동작 과정
+	1. 요청 수신
+		1. kubectl 로 실행한 명령은 항상 master node 의 api 서버로 전달
+		   
+	2. Authentication ( 인증 )
+		1. 요청자가 User / SA 를 전달하면 이 정보가 정상인지 허용 / 거부 판단
+		   
+	3. Authorization ( 인가 )
+		1. 인증된 User / SA 에 할당하는 범위 제어
+		   
+	4. Admission Control
+		1. 해당 동작이 k8s 동작에 영향을 주거나 지정된 동작 범위를 벗어나는지 판단
+		   
+	5. 승인
+---
+- Authorization 관련
+  - Role
+	  - 어떤 API 에 대한 권한 허용인지 명시
+	  - ex, Pod - get , create 가능 + Deployment - get , create , delete 가능 등
+  - Role Binding
+	  - Role + User or SA 연결
+
+- 위 Role / Role Binding 은 한 Namespace 단위로 동작하고, Cluster 전체 단위로 사용은 Cluster Role 과 Cluster Role Binding 이 사용된다.
+
+
+
+
+
