@@ -1,0 +1,188 @@
+{
+  "main": {
+    "id": "83fa98f29e42a802",
+    "type": "split",
+    "children": [
+      {
+        "id": "f34a8e47498f8ee8",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "0286a6d0a5ec36fb",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "TIL/230602.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "683431b73cf31087",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "k8s/k8s ConfigMap , Secret.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "e0a8eb8d08de36b6",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "k8s/CKA.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ],
+        "currentTab": 2
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "f87b13483acaa158",
+    "type": "split",
+    "children": [
+      {
+        "id": "e6167d1d804018ea",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "07cb362f9d9459d5",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "54d2c0daffdd5f1f",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "c5c3d2f346795ee1",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "73d851671a713312",
+    "type": "split",
+    "children": [
+      {
+        "id": "a6f5139f142b5433",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "3b193fdafdba45eb",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "k8s/CKA.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "6d1111384822da51",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "k8s/CKA.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "05ff1e8aac56e6c4",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "c2644b9a6da16de6",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "k8s/CKA.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "e0a8eb8d08de36b6",
+  "lastOpenFiles": [
+    "k8s/k8s Controller.md",
+    "k8s/CKA etcd Backup , Restore.md",
+    "k8s/k8s ConfigMap , Secret.md",
+    "k8s/CKA.md",
+    "k8s/Untitled.md",
+    "TIL/230605.md",
+    "k8s/k8s Label.md",
+    "k8s/CKA Practice Test/PODS.md",
+    "TIL/230601.md",
+    "TIL/230602.md",
+    "k8s/CKA Practice Test"
+  ]
+}
