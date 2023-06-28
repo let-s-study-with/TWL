@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Algorithm.iml" filepath="$PROJECT_DIR$/.idea/Algorithm.iml" />
       <module fileurl="file://$PROJECT_DIR$/Baekjoon/Baekjoon.iml" filepath="$PROJECT_DIR$/Baekjoon/Baekjoon.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Baekjoon/num1005/num1005.iml" filepath="$PROJECT_DIR$/Baekjoon/num1005/num1005.iml" />
       <module fileurl="file://$PROJECT_DIR$/Baekjoon/num10431/num10431.iml" filepath="$PROJECT_DIR$/Baekjoon/num10431/num10431.iml" />
       <module fileurl="file://$PROJECT_DIR$/Baekjoon/num11723 (Bit Mask 연산)/num11723 (Bit Mask 연산).iml" filepath="$PROJECT_DIR$/Baekjoon/num11723 (Bit Mask 연산)/num11723 (Bit Mask 연산).iml" />
       <module fileurl="file://$PROJECT_DIR$/Baekjoon/num1205/num1205.iml" filepath="$PROJECT_DIR$/Baekjoon/num1205/num1205.iml" />
@@ -12,16 +13,20 @@
       <module fileurl="file://$PROJECT_DIR$/Baekjoon/num1515/num1515.iml" filepath="$PROJECT_DIR$/Baekjoon/num1515/num1515.iml" />
       <module fileurl="file://$PROJECT_DIR$/Baekjoon/num17266/num17266.iml" filepath="$PROJECT_DIR$/Baekjoon/num17266/num17266.iml" />
       <module fileurl="file://$PROJECT_DIR$/Baekjoon/num17484/num17484.iml" filepath="$PROJECT_DIR$/Baekjoon/num17484/num17484.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Baekjoon/num19637/num19637.iml" filepath="$PROJECT_DIR$/Baekjoon/num19637/num19637.iml" />
       <module fileurl="file://$PROJECT_DIR$/Baekjoon/num19941/num19941.iml" filepath="$PROJECT_DIR$/Baekjoon/num19941/num19941.iml" />
       <module fileurl="file://$PROJECT_DIR$/Baekjoon/num20125/num20125.iml" filepath="$PROJECT_DIR$/Baekjoon/num20125/num20125.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Baekjoon/num20310/num20310.iml" filepath="$PROJECT_DIR$/Baekjoon/num20310/num20310.iml" />
       <module fileurl="file://$PROJECT_DIR$/Baekjoon/num20920/num20920.iml" filepath="$PROJECT_DIR$/Baekjoon/num20920/num20920.iml" />
       <module fileurl="file://$PROJECT_DIR$/Baekjoon/num2164/num2164.iml" filepath="$PROJECT_DIR$/Baekjoon/num2164/num2164.iml" />
       <module fileurl="file://$PROJECT_DIR$/Baekjoon/num21921/num21921.iml" filepath="$PROJECT_DIR$/Baekjoon/num21921/num21921.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Baekjoon/num2252/num2252.iml" filepath="$PROJECT_DIR$/Baekjoon/num2252/num2252.iml" />
       <module fileurl="file://$PROJECT_DIR$/Baekjoon/num2292/num2292.iml" filepath="$PROJECT_DIR$/Baekjoon/num2292/num2292.iml" />
       <module fileurl="file://$PROJECT_DIR$/Baekjoon/num23971/num23971.iml" filepath="$PROJECT_DIR$/Baekjoon/num23971/num23971.iml" />
       <module fileurl="file://$PROJECT_DIR$/Baekjoon/num2512/num2512.iml" filepath="$PROJECT_DIR$/Baekjoon/num2512/num2512.iml" />
       <module fileurl="file://$PROJECT_DIR$/Baekjoon/num25757/num25757.iml" filepath="$PROJECT_DIR$/Baekjoon/num25757/num25757.iml" />
       <module fileurl="file://$PROJECT_DIR$/Baekjoon/num2607/num2607.iml" filepath="$PROJECT_DIR$/Baekjoon/num2607/num2607.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Baekjoon/num2637/num2637.iml" filepath="$PROJECT_DIR$/Baekjoon/num2637/num2637.iml" />
       <module fileurl="file://$PROJECT_DIR$/Baekjoon/num3758/num3758.iml" filepath="$PROJECT_DIR$/Baekjoon/num3758/num3758.iml" />
       <module fileurl="file://$PROJECT_DIR$/Baekjoon/num4659/num4659.iml" filepath="$PROJECT_DIR$/Baekjoon/num4659/num4659.iml" />
       <module fileurl="file://$PROJECT_DIR$/Baekjoon/num5073/num5073.iml" filepath="$PROJECT_DIR$/Baekjoon/num5073/num5073.iml" />
