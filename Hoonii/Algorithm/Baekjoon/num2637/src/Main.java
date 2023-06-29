@@ -14,10 +14,7 @@ O (N + M)
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -29,13 +26,15 @@ public class Main {
         st = new StringTokenizer(br.readLine());
         int M = Integer.parseInt(st.nextToken());
 
-        ArrayList<Integer>[] adj = new ArrayList[N + 1];
-        ArrayList<Integer>[] adjCount = new ArrayList[N + 1];
-        int[] max = new int[N + 1];
-        for (int i = 1; i < N + 1; i++) {
-            adj[i] = new ArrayList<>();
-            adjCount[i] = new ArrayList<>();
-        }
+//        LinkedList<Integer>[] adj = new LinkedList[N + 1];
+//        LinkedList<Integer>[] adjCount = new LinkedList[N + 1];
+        HashMap<Integer, ArrayList<Integer>> hashMap = new HashMap<>();
+        HashMap<Integer, Integer> max = new HashMap<>();
+//        int[] max = new int[N + 1];
+//        for (int i = 1; i < N + 1; i++) {
+//            adj[i] = new LinkedList<>();
+//            adjCount[i] = new LinkedList<>();
+//        }
 
         while (M-- > 0) {
             st = new StringTokenizer(br.readLine());
@@ -44,8 +43,12 @@ public class Main {
             int Y = Integer.parseInt(st.nextToken());
             int K = Integer.parseInt(st.nextToken());
 
-            adj[X].add(Y);
-            adjCount[X].add(K);
+            hashMap.putIfAbsent(X, new ArrayList<>());
+            hashMap.get(X).add(Y);
+            hashMap.get(X).add(K);
+
+//            adj[X].add(Y);
+//            adjCount[X].add(K);
         }
 
         // 1. 정렬 가능한 노드
@@ -57,15 +60,17 @@ public class Main {
             int num1 = queue.poll();
             int count1 = queue.poll();
 
-            for (int i = 0; i < adj[num1].size(); i ++) {
-                int num2 = adj[num1].get(i);
-                int count2 = adjCount[num1].get(i);
+            for (int i = 0; i < hashMap.get(num1).size(); i += 2) {
+                int num2 = hashMap.get(num1).get(i);
+                int count2 = hashMap.get(num1).get(i + 1);
 
                 int totalCount = count1 * count2;
 
                 // 2. 정렬된 노드 결과 값
-                if (adj[num2].size() == 0) max[num2] += totalCount;
-                else {
+                if (!hashMap.containsKey(num2)) {
+                    max.putIfAbsent(num2, 0);
+                    max.put(num2, max.get(num2) + totalCount);
+                } else {
                     // 3. 인접한 노드 계산 및 정렬 가능한 노드 추가
                     queue.add(num2);
                     queue.add(totalCount);
@@ -74,10 +79,10 @@ public class Main {
         }
 
         // 4. 부품 결과 값 출력
-        for (int i = 1 ; i < N+1 ; i++) {
-            if (max[i] == 0) continue;
+        for (int i = 1; i < N + 1; i++) {
+            if (!max.containsKey(i)) continue;
 
-            sb.append(i).append(" ").append(max[i]).append("\n");
+            sb.append(i).append(" ").append(max.get(i)).append("\n");
         }
 
         System.out.println(sb);
