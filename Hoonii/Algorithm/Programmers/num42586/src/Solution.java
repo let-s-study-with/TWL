@@ -33,8 +33,7 @@ public class Solution {
 
                 before = num;
                 count = 1;
-            }
-            else count++;
+            } else count++;
         }
         answerList.add(count);
 

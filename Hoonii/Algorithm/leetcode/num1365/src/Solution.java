@@ -8,7 +8,11 @@ https://leetcode.com/problems/how-many-numbers-are-smaller-than-the-current-numb
 2. length 까지 증가하며 값이 달라지면 Map 에 num - count 저장 후 count 증가 , 아니면 count 증가
 3. answer 배열에 순서에 맞게 값 저장
 
-O ( N log (N))
+자료구조
+HashMap
+배열
+
+O (N)
  */
 
 import java.util.Arrays;

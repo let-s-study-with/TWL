@@ -15,17 +15,17 @@ O(N)
 import java.util.*;
 
 public class Solution {
-    public int[] solution(int []arr) {
+    public int[] solution(int[] arr) {
         Stack<Integer> stack = new Stack<>();
         stack.add(arr[0]);
-        for (int num : arr){
+        for (int num : arr) {
             if (num == stack.peek()) continue;
 
             stack.add(num);
         }
 
         int[] answer = new int[stack.size()];
-        for (int i = stack.size()-1 ; i >= 0 ; i--){
+        for (int i = stack.size() - 1; i >= 0; i--) {
             answer[i] = stack.pop();
         }
 

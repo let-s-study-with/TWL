@@ -8,7 +8,10 @@ https://leetcode.com/problems/unique-number-of-occurrences/
 2. 숫자가 같으면 count 증가
 3. 마지막 숫자 Count Set 에 있는지 확인 (1) 수행
 
-O(N log (N))
+자료구조
+HashSet
+
+O(N)
  */
 
 import java.util.Arrays;
@@ -22,20 +25,18 @@ public class Solution {
 
         int num = -1001;
         int count = 0;
-        for (int i = 0; i < arr.length ; i++){
-            //
-            if (arr[i] != num){
+        for (int j : arr) {
+            if (j != num) {
                 if (hashSet.contains(count)) return false;
                 hashSet.add(count);
 
-                num = arr[i];
+                num = j;
                 count = 1;
             } else {
                 count++;
             }
         }
 
-        if (hashSet.contains(count)) return false;
-        else return true;
+        return !hashSet.contains(count);
     }
 }
