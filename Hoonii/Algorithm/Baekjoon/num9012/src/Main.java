@@ -8,6 +8,9 @@ https://www.acmicpc.net/problem/9012
 1. Length 만큼 돌면서 '(' 면 카운트 증가 , 아니면 카운트 감소 후 감소 값이 0 이하면 break
 2. 카운트가 0 이면 YES , 아니면 NO
 
+자료구조
+몰?루
+
 O (N) - 각 케이스
  */
 
@@ -33,9 +36,9 @@ public class Main {
                 if (str.charAt(i) == '(') {
                     count++;
                 } else {
-                    if(--count < 0) {
+                    if (--count < 0) {
                         break;
-                    };
+                    }
                 }
             }
 
