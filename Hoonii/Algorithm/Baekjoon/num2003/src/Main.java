@@ -1,11 +1,11 @@
 /*
-https://www.acmicpc.net/problem/1806
+https://www.acmicpc.net/problem/2003
 0.5초 - 128MB
-N (10 ≤ N < 100,000)과 S (0 < S ≤ 100,000,000)
-각 원소는 공백으로 구분되어져 있으며, 10,000이하의 자연수
+N(1 ≤ N ≤ 10,000), M(1 ≤ M ≤ 300,000,000)
+각각의 1 <= A[x] <= 30,000
 
 아이디어
-투 포인터 - 슬라이딩 윈도
+투포인터 - 슬라이딩 윈도
 
 자료구조
 배열
@@ -25,10 +25,10 @@ public class Main {
 
         StringTokenizer st = new StringTokenizer(br.readLine());
         int N = Integer.parseInt(st.nextToken());
-        int S = Integer.parseInt(st.nextToken());
+        int M = Integer.parseInt(st.nextToken());
 
-        st = new StringTokenizer(br.readLine());
         int[] nums = new int[N];
+        st = new StringTokenizer(br.readLine());
         for (int i = 0; i < N; i++) {
             nums[i] = Integer.parseInt(st.nextToken());
         }
@@ -36,21 +36,21 @@ public class Main {
         int L = 0;
         int R = 0;
         int sum = 0;
-        int answer = Integer.MAX_VALUE;
+        int answer = 0;
         while (true) {
-            if (sum < S) {
+            if (sum < M) {
                 if (R == N) break;
 
                 sum += nums[R];
                 R++;
-            } else {
-                answer = Math.min(answer, R - L);
+            } else if (sum >= M) {
+                if (sum == M) answer++;
 
                 sum -= nums[L];
                 L++;
             }
         }
 
-        System.out.println(answer == Integer.MAX_VALUE ? 0 : answer);
+        System.out.println(answer);
     }
 }
