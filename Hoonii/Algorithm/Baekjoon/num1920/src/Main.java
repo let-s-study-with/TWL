@@ -1,14 +1,15 @@
 /*
 https://www.acmicpc.net/problem/1920
-1초 - 128MB
-N(1 ≤ N ≤ 100,000)
-M(1 ≤ M ≤ 100,000)
 
 아이디어
-1. N 오름차순 정렬
-2. 이분탐색
+정렬
+이분탐색
 
-O(M log(N))
+자료구조
+배열
+
+시간복잡도
+O(N log N)
  */
 
 import java.io.BufferedReader;
@@ -23,37 +24,39 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
 
+        int N = Integer.parseInt(br.readLine());
+
+        ArrayList<Integer> arrayList = new ArrayList<>();
         StringTokenizer st = new StringTokenizer(br.readLine());
-        int N = Integer.parseInt(st.nextToken());
-
-        st = new StringTokenizer(br.readLine());
-        ArrayList<Integer> arrayList1 = new ArrayList<>();
-        for (int i = 0; i < N; i++) {
-            arrayList1.add(Integer.valueOf(st.nextToken()));
+        while (st.hasMoreTokens()) {
+            arrayList.add(Integer.valueOf(st.nextToken()));
         }
 
+        Collections.sort(arrayList);
+
+        br.readLine();
         st = new StringTokenizer(br.readLine());
-        int M = Integer.parseInt(st.nextToken());
+        loopM:
+        while (st.hasMoreTokens()) {
+            int num = Integer.parseInt(st.nextToken());
 
-        st = new StringTokenizer(br.readLine());
-        ArrayList<Integer> arrayList2 = new ArrayList<>();
-        for (int i = 0; i < M; i++) {
-            arrayList2.add(Integer.valueOf(st.nextToken()));
-        }
-
-        Collections.sort(arrayList1);
-
-        for (int num : arrayList2) {
             int L = 0;
-            int R = N - 1;
-            while (L <= R) {
-                int mid = (L + R) / 2;
+            int R = arrayList.size();
+            int mid = 0;
+            while (L < R) {
+                mid = (L + R) / 2;
 
-                if (arrayList1.get(mid) > num) R = mid - 1;
-                else L = mid + 1;
+                if (arrayList.get(mid) < num) L = mid + 1;
+                else if (arrayList.get(mid) > num) R = mid;
+                else {
+                    sb.append(1).append("\n");
+                    continue loopM;
+                }
             }
-            sb.append(0 <= R && R < N && num == arrayList1.get(R) ? 1 : 0).append("\n");
+
+            sb.append(0).append("\n");
         }
+
         System.out.println(sb);
     }
 }
