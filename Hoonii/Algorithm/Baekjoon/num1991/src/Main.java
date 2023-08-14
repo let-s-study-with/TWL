@@ -44,24 +44,30 @@ public class Main {
     }
 
     public static String preOrder(char node, String str) {
+        if (node == '.') return str;
+
         str += node;
-        if (map.get(node).get(0) != '.') str = preOrder(map.get(node).get(0), str);
-        if (map.get(node).get(1) != '.') str = preOrder(map.get(node).get(1), str);
+        str = preOrder(map.get(node).get(0), str);
+        str = preOrder(map.get(node).get(1), str);
 
         return str;
     }
 
     public static String inOrder(char node, String str) {
-        if (map.get(node).get(0) != '.') str = inOrder(map.get(node).get(0), str);
+        if (node == '.') return str;
+
+        str = inOrder(map.get(node).get(0), str);
         str += node;
-        if (map.get(node).get(1) != '.') str = inOrder(map.get(node).get(1), str);
+        str = inOrder(map.get(node).get(1), str);
 
         return str;
     }
 
     public static String postOrder(char node, String str) {
-        if (map.get(node).get(0) != '.') str = postOrder(map.get(node).get(0), str);
-        if (map.get(node).get(1) != '.') str = postOrder(map.get(node).get(1), str);
+        if (node == '.') return str;
+
+        str = postOrder(map.get(node).get(0), str);
+        str = postOrder(map.get(node).get(1), str);
         str += node;
 
         return str;
