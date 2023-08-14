@@ -18,19 +18,17 @@ public class Solution {
     List<Integer> list = new ArrayList<>();
 
     public List<Integer> inorderTraversal(TreeNode root) {
-        if (Objects.isNull(root)) return list;
-
         dfs(root);
 
         return list;
     }
 
     public void dfs (TreeNode node){
-        if(!Objects.isNull(node.left)) dfs(node.left);
+        if (Objects.isNull(node)) return;
 
+        dfs(node.left);
         list.add(node.val);
-
-        if(!Objects.isNull(node.right)) dfs(node.right);
+        dfs(node.right);
     }
 }
 

@@ -15,15 +15,7 @@ import java.util.Objects;
 
 public class Solution {
     public boolean checkTree(TreeNode root) {
-        boolean isTree = true;
-
-        if (!Objects.isNull(root.left)) isTree = checkTree(root.left);
-        if (!Objects.isNull(root.right) && isTree) isTree = checkTree(root.left);
-
-        if (!Objects.isNull(root.left) && !Objects.isNull(root.right) && isTree)
-            isTree = root.val == root.left.val + root.right.val;
-
-        return isTree;
+        return root.val == root.left.val + root.right.val;
     }
 }
 
