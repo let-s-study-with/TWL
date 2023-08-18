@@ -19,14 +19,11 @@ public class Solution {
     }
 
     public final TreeNode findTarget(TreeNode node, TreeNode target) {
-        TreeNode answer = null;
+        if (Objects.isNull(node)) return null;
+        else if (node.val == target.val) return node;
 
-        if (node.val == target.val) {
-            return node;
-        } else {
-            if (!Objects.isNull(node.left)) answer = findTarget(node.left, target);
-            if (!Objects.isNull(node.right) && Objects.isNull(answer)) answer = findTarget(node.right, target);
-        }
+        TreeNode answer = findTarget(node.left, target);
+        if (Objects.isNull(answer)) answer = findTarget(node.right, target);
 
         return answer;
     }

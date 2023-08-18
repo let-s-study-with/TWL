@@ -15,16 +15,15 @@ import java.util.Objects;
 
 public class Solution {
     public int maxDepth(TreeNode root) {
-        if (Objects.isNull(root)) return 0;
-
         return dfs(root, 1);
     }
 
     public int dfs(TreeNode node, int depth) {
-        int answer = depth;
+        if (Objects.isNull(node)) return depth - 1;
 
-        if (!Objects.isNull(node.left)) answer = Math.max(answer, dfs(node.left, depth + 1));
-        if (!Objects.isNull(node.right)) answer = Math.max(answer, dfs(node.right, depth + 1));
+        int answer = depth;
+        answer = Math.max(answer, dfs(node.left, depth + 1));
+        answer = Math.max(answer, dfs(node.right, depth + 1));
 
         return answer;
     }
