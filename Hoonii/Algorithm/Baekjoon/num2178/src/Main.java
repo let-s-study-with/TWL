@@ -22,7 +22,11 @@ public class Main {
     static int N, M;
     static int[][] map;
     static boolean[][] visitied;
-    static int[][] position = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+    static int[][] position = {
+            {0, 1},
+            {1, 0},
+            {0, -1},
+            {-1, 0}};
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
