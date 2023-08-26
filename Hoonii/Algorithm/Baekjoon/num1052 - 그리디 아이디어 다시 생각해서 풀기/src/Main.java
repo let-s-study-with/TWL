@@ -1,15 +1,15 @@
 /*
-https://www.acmicpc.net/problem/1052
-1초 - 512MB
-N은 107보다 작거나 같은 자연수 , K는 1,000보다 작거나 같은 자연수
+https://velog.io/@hyungmin96/JAVABOJ1052-%EB%AC%BC%ED%86%B5
 
 아이디어
-1. ceil (log2 (N)) - (K-1) 을 구하고 (2^해당 값) 으로 N 나눈 나머지가 (2^해당 값-1) 이 넘는지 확인
-1-1. 절반이 넘으면 절반 값에서 나머지를 뺸 값이 정답
-1-2. 절반이 안넘으면 해당 값을 1 줄이며 반복 수행
-1-3. 마지막 까지 갔다면 2^1 인데 해당 값들인 나머지가 1 아니면 딱 떨어지는 기본값 0 임
+-> 옮길 수 있는 물통의 수를 보는게 아니라
+--> 가장 가까운 k 개 옮길 수 있는 물통의 경우를 구하는 게 포인트
 
-O(log N)
+자료구조
+변수
+
+시간복잡도
+O(N)
  */
 
 import java.io.BufferedReader;
@@ -18,38 +18,43 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
+    static int N, K;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
         StringTokenizer st = new StringTokenizer(br.readLine());
-        int N = Integer.parseInt(st.nextToken());
-        int K = Integer.parseInt(st.nextToken());
 
-        int count = Math.max(2, count(N, 2) - (K-1));
-        // 2^1 의 경우는 loop 제외, 딱 떨어지지 않으면 최대가 1이므로
-        int answer = 0;
+        N = Integer.parseInt(st.nextToken());
+        K = Integer.parseInt(st.nextToken());
 
-        if (N <= K){
-            System.out.println(0);
-            return;
+        int totalWater = N;
+        while (true) {
+            if (isPossible(totalWater)) break;
+            totalWater++;
         }
 
-        // 2^2 까지 진행하며 필요한 개수 계산
-        for (int i = count; i > 1; i--) {
-            if (N % (int) Math.pow(2, i) > (int) Math.pow(2, i - 1)){
-                answer = (int) Math.pow(2, i-1) - (N % (int) Math.pow(2, i-1));
-                break;
-            }
-        }
-
-        // 딱 떨어지는 값인 경우 0으로 예외처리
-//        if (N % (int) Math.pow(2, count - 1) == 0) answer = 0;
-
-        System.out.println(answer);
+        System.out.println(totalWater - N);
     }
 
-    // 밑이 2 인 로그 값 ( 올림 ) 구하기
-    public static int count(int x, int y) {
-        return (int) Math.ceil(Math.log(x) / Math.log(y));
+    public static boolean isPossible(int count) {
+        int buyCount = 0;
+
+        while (count > 0) {
+            if (count % 2 == 1) buyCount++;
+
+            count /= 2;
+        }
+
+        /*
+        1의 자리가 합쳐지도록 구매한 물통 수가 옮길 수 있는 물통 수와 비교되는 이유는
+
+        5의 경우 위 결과로 구매 물통은 2 가 된다.
+        6의 경우 2가 된다.
+        7의 경우 3이 된다.
+        8의 경우 1이 된다.
+
+        즉, 옮길 수 있는 물통의 수가 되는 것
+         */
+        return buyCount <= K;
     }
 }
